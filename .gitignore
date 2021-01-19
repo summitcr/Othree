@@ -1,0 +1,5 @@
+
+*.stat
+code/volume/pg_stat_tmp/global.stat
+code/volume/pg_stat_tmp/db_12404.stat
+code/volume/pg_stat_tmp/db_0.stat
