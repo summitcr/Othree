@@ -1,0 +1,28 @@
+services:
+  othree.api:
+    build:
+      context: C:\Users\gusta\Documents\othree\Othree\code
+      dockerfile: Othree.API/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://+:80
+    image: othreeapi
+    ports:
+    - published: 80
+      target: 80
+    volumes:
+    - C:\Users\gusta\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - C:\Users\gusta\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+  postgres:
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: mysecret
+    image: postgres:9.6.12-alpine
+    ports:
+    - published: 5432
+      target: 5432
+    volumes:
+    - C:\Users\gusta\Documents\othree\Othree\code\data\schema.sql:/docker-entrypoint-initdb.d/1-schema.sql:rw
+    - C:\Users\gusta\Documents\othree\Othree\code\data\data.sql:/docker-entrypoint-initdb.d/2-data.sql:rw
+    - C:\Users\gusta\Documents\othree\Othree\code\volume:/var/lib/postgresql/data:rw
+version: '3.4'

@@ -1,0 +1,22 @@
+version: '3.4'
+
+services:
+  othree.api:
+    image: ${DOCKER_REGISTRY-}othreeapi
+    build:
+      context: .
+      dockerfile: Othree.API/Dockerfile
+
+
+  postgres:
+    image: postgres:9.6.12-alpine
+    container_name: postgres
+    volumes:
+        - "./volume:/var/lib/postgresql/data"
+        - "./data/schema.sql:/docker-entrypoint-initdb.d/1-schema.sql"
+        - "./data/data.sql:/docker-entrypoint-initdb.d/2-data.sql"
+    ports:
+        - 5432:5432
+    environment:
+        - POSTGRES_PASSWORD=mysecret
+   

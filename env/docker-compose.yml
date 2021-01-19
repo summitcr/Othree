@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+ postgres:
+   image: postgres:9.6.12-alpine
+   container_name: some-postgres
+   volumes:
+     - "~/Documents/othree/volume:/var/lib/postgresql/data"
+     - "./schema.sql:/docker-entrypoint-initdb.d/1-schema.sql"
+     - "./data.sql:/docker-entrypoint-initdb.d/2-data.sql"
+   ports:
+     - 5432:5432
+   environment:
+     - POSTGRES_PASSWORD=mysecret
+   deploy:
+     restart_policy:
+       condition: on-failure
+       max_attempts: 3
+    
+ # pgadmin:
+ #   image: dpage/pgadmin4
+ #   container_name: some-pgadmin
+ #   volumes:
+ #     - ${PWD}/servers.json:/pgadmin4/servers.json
+ #   ports:odode
+ #     - 8080:80
+ #   environment:
+ #     - PGADMIN_DEFAULT_EMAIL=user@domain.com
+ #     - PGADMIN_DEFAULT_PASSWORD=admin
+ #   deploy:
+ #     restart_policy:
+ #       condition: on-failure
+ #       max_attempts: 3
+
